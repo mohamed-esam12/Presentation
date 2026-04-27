@@ -131,13 +131,12 @@
 
         .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; flex-grow: 1; }
         
-        /* Image Wrapper used for Maps and Charts */
         .image-wrapper {
             width: 100%; height: 400px;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid rgba(251, 191, 36, 0.3);
             border-radius: 20px;
-            display: flex; justify-content: center; align-items: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
             overflow: hidden; padding: 10px;
         }
 
@@ -159,6 +158,20 @@
 
         .progress-indicator { color: var(--text-dim); font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 500; width: 100px; text-align: center; }
         .highlight { color: var(--accent-pink); font-weight: 600; }
+
+        /* Equation Styling */
+        .math-eq {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 54px;
+            font-style: italic;
+            color: #ffffff;
+            letter-spacing: 2px;
+            margin-top: 15px;
+        }
+        .math-eq sub {
+            font-size: 30px;
+            font-style: normal;
+        }
     </style>
 </head>
 <body>
@@ -306,13 +319,21 @@
             <div class="method-badge">Section 2.4</div>
             <span class="section-tag">Methodology</span>
             <h2><span>V.</span> Interstellar Extinction</h2>
-            <ul>
-                <li>Consulted 3D extinction maps from Gaia-2MASS and PanSTARRS databases.</li>
-                <li>Cross-checked neutral hydrogen column density from HI4PI survey data.</li>
-                <li>Calculated <span class="keyword">A<sub>V</sub> = 2.4 &plusmn; 0.2 mag</span> by analyzing stars within 10' of Pa 30.</li>
-                <li>Used Gaia EDR3 parallaxes to confirm the distance for extinction correction.</li>
-                <li>This correction was essential for calculating true peak intrinsic luminosity.</li>
-            </ul>
+            <div class="content-grid">
+                <ul>
+                    <li>Consulted 3D extinction maps from Gaia-2MASS and PanSTARRS databases.</li>
+                    <li>Cross-checked neutral hydrogen column density from HI4PI survey data.</li>
+                    <li>Calculated <span class="keyword">A<sub>V</sub> = 2.4 &plusmn; 0.2 mag</span> by analyzing stars within 10' of Pa 30.</li>
+                    <li>Used Gaia EDR3 parallaxes to confirm the distance for extinction correction.</li>
+                    <li>This correction was essential for calculating true peak intrinsic luminosity.</li>
+                </ul>
+                <div class="image-wrapper" style="border: 2px dashed rgba(251, 191, 36, 0.4); justify-content: center; gap: 15px;">
+                    <span style="color: var(--accent-gold); font-family: 'Space Grotesk', sans-serif; font-size: 22px; letter-spacing: 2px; text-transform: uppercase;">Dereddening Equation</span>
+                    <div class="math-eq">
+                        m<sub>&lambda;,0</sub> = m<sub>&lambda;,obs</sub> &minus; A<sub>&lambda;</sub>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="slide" id="s11">
