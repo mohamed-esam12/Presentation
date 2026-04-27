@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SN 1181: Astrophysical Discovery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #020617;
+            --accent-cyan: #22d3ee;
+            --accent-pink: #f472b6;
+            --accent-gold: #fbbf24;
+            --glass-bg: rgba(15, 23, 42, 0.85);
+            --text-main: #f8fafc;
+            --text-dim: #cbd5e1;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .cosmos {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+            z-index: -1;
+        }
+
+        .stars {
+            position: absolute; width: 100%; height: 100%;
+            background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+            opacity: 0.3; animation: drift 150s linear infinite;
+        }
+
+        @keyframes drift {
+            from { background-position: 0 0; }
+            to { background-position: 1000px -1000px; }
+        }
+
+        .slide-container {
+            width: 100vw; height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            perspective: 1200px;
+        }
+
+        .slide {
+            width: 1280px; height: 720px;
+            background: var(--glass-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 50px 70px;
+            display: none;
+            position: relative;
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            overflow: hidden;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide.active { display: flex; animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: scale(0.95) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 58px; font-weight: 700; line-height: 1.2; margin-bottom: 20px; text-align: center; }
+        .section-tag { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 5px; font-size: 15px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 12px; display: block; text-align: center; }
+        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 500; margin-bottom: 35px; color: var(--text-main); display: flex; align-items: center; gap: 20px; }
+        h2 span { color: var(--accent-cyan); font-weight: 300; }
+        
+        p, li { font-size: 24px; line-height: 1.6; color: var(--text-dim); margin-bottom: 20px; }
+        ul { list-style: none; display: flex; flex-direction: column; justify-content: center; }
+        li { position: relative; padding-left: 40px; }
+        li::before { content: '→'; position: absolute; left: 0; color: var(--accent-cyan); font-weight: bold; font-size: 26px; }
+
+        .method-slide h2 span { color: var(--accent-gold); }
+        .method-slide .section-tag { color: var(--accent-gold); }
+        .method-slide li::before { color: var(--accent-gold); }
+        .method-slide { border: 1px solid rgba(251, 191, 36, 0.3); }
+
+        .method-badge {
+            position: absolute; top: 20px; right: 50px;
+            background: var(--accent-gold); color: #000;
+            padding: 5px 20px; border-radius: 20px; font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        .presenters-box {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto; margin-right: auto;
+        }
+        
+        .presenter-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .presenter-card span {
+            display: block;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent-pink);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .presenter-name { color: var(--text-main); font-size: 20px !important; font-weight: 600; margin-bottom: 5px !important; }
+        .presenter-code { color: var(--accent-cyan) !important; font-size: 17px !important; font-family: 'Space Grotesk', sans-serif; }
+
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; flex-grow: 1; }
+        
+        /* Image Wrapper used for Maps and Charts */
+        .image-wrapper {
+            width: 100%; height: 400px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 20px;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; padding: 10px;
+        }
+
+        .image-wrapper img { max-width: 100%; max-height: 100%; border-radius: 10px; object-fit: contain; }
+
+        .controls {
+            position: absolute; bottom: 40px; left: 0; width: 100%;
+            display: flex; justify-content: center; align-items: center; gap: 35px; z-index: 100;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white; width: 60px; height: 60px; border-radius: 50%;
+            cursor: pointer; transition: all 0.3s; display: flex; justify-content: center; align-items: center; font-size: 20px;
+        }
+
+        button:hover { background: var(--accent-cyan); color: var(--bg-color); border-color: var(--accent-cyan); box-shadow: 0 0 25px rgba(34, 211, 238, 0.5); }
+        button:disabled { opacity: 0.1; cursor: not-allowed; }
+
+        .progress-indicator { color: var(--text-dim); font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 500; width: 100px; text-align: center; }
+        .highlight { color: var(--accent-pink); font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="cosmos"><div class="stars"></div></div>
+
+    <div class="slide-container">
+        
+        <div class="slide active" id="s0">
+            <span class="section-tag">Astrophysical Research Analysis</span>
+            <h1>THE REMNANT AND ORIGIN OF THE<br><span style="color: var(--accent-cyan)">HISTORICAL SUPERNOVA 1181 AD</span></h1>
+            <div style="height: 4px; width: 120px; background: var(--accent-pink); margin: 25px auto;"></div>
+            <p style="text-align: center; font-size: 28px; color: var(--text-main); margin-bottom: 30px;">Ritter et al. (2021) • A Cosmic Cold Case Solved</p>
+            <div class="presenters-box">
+                <div class="presenter-card">
+                    <span>Presented By</span>
+                    <p class="presenter-name">Mohamed Esam Abdelrazek</p>
+                    <p class="presenter-code">2328139</p>
+                </div>
+                <div class="presenter-card">
+                    <span>Presented By</span>
+                    <p class="presenter-name">Member Name</p> 
+                    <p class="presenter-code">ID Code</p> 
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="s1">
+            <span class="section-tag">Section I: Introduction</span>
+            <h2><span>I.</span> The 1181 Supernova Mystery</h2>
+            <ul>
+                <li>An 800-year-old astronomical mystery documenting a 12th-century event.</li>
+                <li>Identified as a <span class="highlight">'guest star'</span> by court astronomers in China and Japan.</li>
+                <li>Extraordinary visibility: Remained in the sky for 185 days starting August 1181 CE.</li>
+                <li>The last millennium's only historical supernova without a verified origin point.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s2">
+            <span class="section-tag">Section I: Introduction</span>
+            <h2><span>II.</span> A Sudden Appearance in the Sky</h2>
+            <ul>
+                <li>Sudden emergence as a bright, static point of light that eventually faded.</li>
+                <li>Historical brightness comparison was frequently made with the planet Saturn.</li>
+                <li>Thermonuclear nature confirmed by the steady decay of its light curve.</li>
+                <li><strong>Core Challenge:</strong> High-energy events typically leave clear markers for centuries.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s3">
+            <span class="section-tag">Section I: Introduction</span>
+            <h2><span>III.</span> Why This Is a Problem</h2>
+            <ul>
+                <li>Standard Supernovae leave massive markers like dense Nebulae and Pulsars.</li>
+                <li>Despite known historical sky positions, no remnant was confirmed for 800 years.</li>
+                <li>Led to theories about unusual low-luminosity explosions or surviving cores.</li>
+                <li>Did researchers misidentify the target region or the fundamental type of explosion?</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s4">
+            <span class="section-tag">Section I: Introduction</span>
+            <h2><span>IV.</span> The First Candidate: 3C 58</h2>
+            <ul>
+                <li>A prominent supernova remnant (SNR) containing an active, young pulsar.</li>
+                <li>Geographically located near the historically predicted sky coordinates.</li>
+                <li>Accepted for decades as the only viable counterpart to the recorded 1181 AD event.</li>
+                <li>The match seemed plausible based on its radio brightness and sky position.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s5">
+            <span class="section-tag">Section I: Introduction</span>
+            <h2><span>V.</span> Why 3C 58 Was Rejected</h2>
+            <ul>
+                <li>Radio observations of its physical expansion indicate an age of &approx;7,000 years.</li>
+                <li>Pulsar spin-down models independently estimate an age of &approx;5,400 years.</li>
+                <li>Both physical metrics prove 3C 58 is far too old for an 1181 AD event.</li>
+                <li>This chronological mismatch forced a restart in the search for the real remnant.</li>
+            </ul>
+        </div>
+
+        <div class="slide method-slide" id="s6">
+            <div class="method-badge">Section 2.1</div>
+            <span class="section-tag">Methodology</span>
+            <h2><span>I.</span> Coordinates & Positional Concordance</h2>
+            <div class="content-grid">
+                <div class="image-wrapper">
+                    <img src="image.png" alt="Map Figure 3">
+                </div>
+                <ul>
+                    <li>Averaged 5 historical positions from ancient court records (Hoffmann et al. 2020).</li>
+                    <li>Applied <span class="keyword">J2000 coordinate transformations</span> for axial precession.</li>
+                    <li>Analyzed the position relative to asterisms: Wangliang, Huagai, and Chuanshe.</li>
+                    <li>Verified Gaia proper motion (2.7 mas yr<sup>-1</sup>), finding negligible drift (&sim;3").</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="slide method-slide" id="s7">
+            <div class="method-badge">Section 2.2</div>
+            <span class="section-tag">Methodology</span>
+            <h2><span>II.</span> Observations: Archival Data & PCA</h2>
+            <ul>
+                <li>Re-reduced 2014 SparsePak IFU data from the 3.5m WIYN Telescope at KPNO.</li>
+                <li>The IFU provided a 72" &times; 71" spatial grid using 82 dedicated fibers.</li>
+                <li>Wavelength coverage spanned 4280&ndash;7095 &Aring; with a resolution of 3.35 &Aring;.</li>
+                <li>Utilized <span class="keyword">Principal Component Analysis (PCA)</span> for complex sky subtraction.</li>
+                <li>PCA was vital because sky fibers were contaminated by nebular emission.</li>
+            </ul>
+        </div>
+
+        <div class="slide method-slide" id="s8">
+            <div class="method-badge">Section 2.2</div>
+            <span class="section-tag">Methodology</span>
+            <h2><span>III.</span> Observations: Optical Spectroscopy</h2>
+            <ul>
+                <li>Conducted July 2016 observations using the giant <span class="keyword">10m GTC Telescope</span>.</li>
+                <li>Used OSIRIS instrument with grism R1000B (3700&ndash;7000 &Aring; range).</li>
+                <li>Employed 2 &times; 2 binning for a spatial scale of 0.254" per individual pixel.</li>
+                <li>Total integration time of 40 minutes (divided into 2 &times; 20 minute blocks).</li>
+                <li>Used GTCMOS pipeline for absolute wavelength calibration accuracy.</li>
+            </ul>
+        </div>
+
+        <div class="slide method-slide" id="s9">
+            <div class="method-badge">Section 2.3</div>
+            <span class="section-tag">Methodology</span>
+            <h2><span>IV.</span> Expansion Velocity Measurement</h2>
+            <div class="content-grid">
+                <ul>
+                    <li>Focused on the <span class="keyword">[S II] doublet (6716, 6731 &Aring;)</span> to track gas kinetics.</li>
+                    <li>Computed Doppler shifts via <span class="keyword">Cross-Correlation</span> with zero-velocity templates.</li>
+                    <li>Developed a Position-Velocity (PV) diagram showing sharp shell variations.</li>
+                    <li>Applied Gaussian minima fitting to extract peak radial velocities accurately.</li>
+                    <li>Maintained radial velocity measurement accuracy within a few km s<sup>-1</sup>.</li>
+                </ul>
+                <div class="image-wrapper">
+                    <img src="image copy.png" alt="Gaussian Distribution Fit">
+                </div>
+            </div>
+        </div>
+
+        <div class="slide method-slide" id="s10">
+            <div class="method-badge">Section 2.4</div>
+            <span class="section-tag">Methodology</span>
+            <h2><span>V.</span> Interstellar Extinction</h2>
+            <ul>
+                <li>Consulted 3D extinction maps from Gaia-2MASS and PanSTARRS databases.</li>
+                <li>Cross-checked neutral hydrogen column density from HI4PI survey data.</li>
+                <li>Calculated <span class="keyword">A<sub>V</sub> = 2.4 &plusmn; 0.2 mag</span> by analyzing stars within 10' of Pa 30.</li>
+                <li>Used Gaia EDR3 parallaxes to confirm the distance for extinction correction.</li>
+                <li>This correction was essential for calculating true peak intrinsic luminosity.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s11">
+            <span class="section-tag">Section III: Conclusion</span>
+            <h2><span>I.</span> The Kinematic Age</h2>
+            <ul>
+                <li>Measured Expansion Velocity: &sim;1100 km/s in the high-velocity shell.</li>
+                <li>Derived Physical Diameter: 2.2 &plusmn; 0.4 pc at a distance of 2.3 kpc.</li>
+                <li>Kinematic age calculated at &approx;990 years (Free Expansion phase).</li>
+                <li>The physical timeline matches the 1181 AD explosion perfectly.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s12">
+            <span class="section-tag">Section III: Conclusion</span>
+            <h2><span>II.</span> Positional Concordance Summary</h2>
+            <ul>
+                <li>Separation between Pa 30 and historical records: Only 3.5 degrees of arc.</li>
+                <li>Fits Chinese descriptions of appearing near the asterism "Huagai".</li>
+                <li>Aligns perfectly with Japanese records of being close to "Wangliang" (Cassiopeia).</li>
+                <li>Spatial agreement is significantly stronger than previously accepted remnants.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s13">
+            <span class="section-tag">Section III: Conclusion</span>
+            <h2><span>III.</span> Ruling Out 3C 58</h2>
+            <ul>
+                <li>3C 58 is located 4.5 degrees away from the historical target coordinate.</li>
+                <li>It lies in the "Kotao" asterism, which historical texts never mentioned.</li>
+                <li>If it were the SN 1181 source, it would be described near &epsilon; Cas.</li>
+                <li>Physical age and positional inconsistencies definitively exclude it as a remnant.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s14">
+            <span class="section-tag">Section III: Conclusion</span>
+            <h2><span>IV.</span> Subluminous Magnitude</h2>
+            <ul>
+                <li>Peak apparent magnitude calculated at -0.5 to +1.0 (Saturn-like).</li>
+                <li>Correcting for dust extinction gives an absolute magnitude of -14 to -12.5.</li>
+                <li>This is far fainter than a standard Type Ia Supernova (typically -19).</li>
+                <li>Proves the explosion was a <span class="highlight">Subluminous</span> thermonuclear event.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s15">
+            <span class="section-tag">Section III: Conclusion</span>
+            <h2><span>V.</span> The Merger Scenario</h2>
+            <ul>
+                <li>"Parker's star" is extremely hot (&sim;200,000 K) and hydrogen-poor.</li>
+                <li>Nebula is rich in Neon, Magnesium, and Sulfur (products of fusion).</li>
+                <li>Indicates a merger between Oxygen-Neon (ONe) and Carbon-Oxygen (CO) white dwarfs.</li>
+                <li>Explains the incomplete combustion characteristic of a rare Type Iax supernova.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s16">
+            <span class="section-tag">Section III: Conclusion</span>
+            <h2><span>VI.</span> A Unique Astrophysical Find</h2>
+            <ul>
+                <li>Pa 30 is the only confirmed remnant of a Type Iax SN in our Galaxy.</li>
+                <li>Provides a rare "live" view of a surviving stellar core after a thermonuclear blast.</li>
+                <li>Supports the double-degenerate merger model for low-luminosity explosions.</li>
+                <li>Offers a unique opportunity to study post-merger stellar evolution.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="s17">
+            <span class="section-tag">Section III: Conclusion</span>
+            <h2><span>VII.</span> Final Verdict</h2>
+            <div style="text-align: center; display: flex; flex-direction: column; justify-content: center; height: 100%;">
+                <p style="font-size: 34px; color: var(--text-main); font-weight: 600; margin-bottom: 20px;">"Pa 30 and Parker's Star are definitively identified as the 1181 AD Remnant."</p>
+                <div style="height: 3px; width: 350px; background: var(--accent-cyan); margin: 25px auto;"></div>
+                <p style="font-size: 28px;">An 840-year cold case is now officially closed.</p>
+                <p style="color: var(--accent-gold); margin-top: 30px; font-weight: 700; letter-spacing: 2px;">THANK YOU!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button id="prevBtn" onclick="moveSlide(-1)" disabled><i class="fa-solid fa-chevron-left"></i></button>
+        <div class="progress-indicator" id="counter">1 / 18</div>
+        <button id="nextBtn" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function moveSlide(direction) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide += direction;
+            slides[currentSlide].classList.add('active');
+
+            document.getElementById('prevBtn').disabled = currentSlide === 0;
+            document.getElementById('nextBtn').disabled = currentSlide === totalSlides - 1;
+            document.getElementById('counter').innerText = `${currentSlide + 1} / ${totalSlides}`;
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) moveSlide(1);
+            if (e.key === 'ArrowLeft' && currentSlide > 0) moveSlide(-1);
+        });
+    </script>
+</body>
+</html>
